@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateDiasTable extends Migration
+class CreateGrupoUsuario extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,10 @@ class CreateDiasTable extends Migration
      */
     public function up()
     {
-        Schema::create('dias', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->date('fecha');
-            $table->boolean('bloqueado');
+        Schema::create('grupo_usuario', function (Blueprint $table) {
             $table->unsignedBigInteger('grupo_id');
             $table->unsignedBigInteger('user_id');
-            $table->timestamps();
+
             $table->foreign('grupo_id')->references('id')->on('grupos');
             $table->foreign('user_id')->references('id')->on('users');
         });
@@ -32,6 +29,6 @@ class CreateDiasTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('dias');
+        Schema::dropIfExists('grupo_usuario');
     }
 }
