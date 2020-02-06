@@ -4,82 +4,19 @@ namespace App\Http\Controllers;
 
 use App\Grupo;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class GrupoController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+    public function nuevoGrupo(Request $request)
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Grupo  $grupo
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Grupo $grupo)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Grupo  $grupo
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Grupo $grupo)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Grupo  $grupo
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Grupo $grupo)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Grupo  $grupo
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Grupo $grupo)
-    {
-        //
+        $grupo = new Grupo([
+            'nombre'    => $request->nombre,
+            'normas'    => $request->normas,
+            'codigo'    => Str::random(7),
+        ]);        
+        
+        $grupo->save();        
+        return response()->json(['message' => 'Grupo creado'], 201);
     }
 }

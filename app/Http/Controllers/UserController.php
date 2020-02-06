@@ -3,62 +3,33 @@
 namespace App\Http\Controllers;
 
 use App\User;
+use App\Grupo;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
+    //usuarioId - identificador único del usuario 
+    //codigo - codigo aleatorio que representa al grupo públicamente
+    public function unirseAGrupo(Request $request){
+
+        $usuario = \App\User::find($request->usuarioId);
+        $grupo = \App\Grupo::where('codigo',$request->codigo)->first();
+
+        if($usuario == null || $grupo == null){
+            return response()->json(['message' => 'Error al unirse al grupo'], 500);
+        }else{
+            $usuario->grupos()->attach($grupo);
+            return response()->json(['message' => 'Usuario unido al grupo'], 201);
+        }
+
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
+    public function gruposUsuario(Request $request){
+
+        $usuario = \App\User::find($request->usuarioId);
+
+        return $usuario->grupos;
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\User  $user
-     * @return \Illuminate\Http\Response
-     */
-    public function show(User $user)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\User  $user
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, User $user)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\User  $user
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(User $user)
-    {
-        //
-    }
+  
 }
