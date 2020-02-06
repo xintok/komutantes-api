@@ -24,7 +24,6 @@ Route::group(['prefix' => 'auth'], function () {
     
 });
 
-Route::group(['middleware' => 'auth:api'], function() {
     Route::resource('grupos', 'GrupoController');
     Route::resource('dias', 'DiaController');
     Route::resource('users', 'UserController');
