@@ -19,4 +19,11 @@ class GrupoController extends Controller
         $grupo->save();        
         return response()->json(['message' => 'Grupo creado'], 201);
     }
+
+    public function usuariosGrupo(Request $request){
+
+        $grupo = \App\Grupo::find($request->grupoId);
+
+        return $grupo->users;
+    }
 }

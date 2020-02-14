@@ -7,79 +7,95 @@ use Illuminate\Http\Request;
 
 class DiaController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
+    //Generar mes
+    public function generarMes(Request $request){
+
+        //obtener todo los días del mes
+
+        //bucle dias
+
+            //añadir grupo al día
+            //guardar dia
+        
+        //fin bucle
+
+        //retunr dias
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+
+    //Planning
+    public function generarPlanning(Request $request){
+
+        //obtener diasGrupo
+        //obtener usuariosGrupo
+
+        //bucle dias
+
+            
+        
+
+
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
+    //Bloquear día
+    public function bloquearDia(Request $request){
+
+        $dia = $this->obtenerDia($request->grupoId, $request->fecha);
+
+        $dia->bloqueado=true;
+
+        $dia->save();
+        return response()->json(['message' => 'Día bloqueado'], 201);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Dia  $dia
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Dia $dia)
-    {
-        //
+    //Desbloquear día
+    public function desbloquearDia(Request $request){
+
+        $dia = $this->obtenerDia($request->grupoId, $request->fecha);
+
+        $dia->bloqueado=false;
+
+        $dia->save();
+        return response()->json(['message' => 'Día desbloqueado'], 201);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Dia  $dia
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Dia $dia)
-    {
-        //
+    //Ver mes //Obtener días de grupo
+    public function diasGrupo(Request $request){
+
+        $dias = \App\Dia::where("grupo_id", $request->grupoId)->whereMonth('fecha', $request->mes)->get();
+
+        return $dias;
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Dia  $dia
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Dia $dia)
-    {
-        //
+    //Asignar usuario
+    public function asignarUsuario(Request $request){
+
+        $dia = $this->obtenerDia($request->grupoId, $request->fecha);
+        $usuario = \App\User::find($request->usuarioId);
+
+        $dia->user()->associate($usuario);
+
+        $dia->save();
+        return response()->json(['message' => 'Usuario asignado'], 201);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Dia  $dia
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Dia $dia)
-    {
-        //
+    //Quitar usuario
+    public function quitarUsuario(Request $request){
+
+        $dia = $this->obtenerDia($request->grupoId, $request->fecha);
+
+        $dia->user()->disociate();
+
+        $dia->save();
+        return response()->json(['message' => 'Día sin asignación'], 201);
     }
+
+    //Obtener dia
+    private function obtenerDia($grupo,$fecha){
+
+        $dia = \App\Dia::where("grupo_id",$grupo)->where("fecha",$fecha)->first();
+
+        return $dia;
+    }
+
 }
