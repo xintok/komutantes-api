@@ -1,0 +1,88 @@
+{
+	"info": {
+		"_postman_id": "16c40837-adeb-4f7b-bf64-62935c1e6ab9",
+		"name": "KOMUTANTES_API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "AUTENTICACION",
+			"item": [
+				{
+					"name": "SIGNUP",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "X-Requested-With",
+								"value": "XMLHttpRequest",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\"name\":\"user8\",\n\"email\":\"154@x.com\",\n\"password\": \"1234\",\n\"password_confirmation\": \"1234\"\n}"
+						},
+						"url": {
+							"raw": "localhost:8000/api/signup",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"signup"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "LOGIN",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "X-Requested-With",
+								"value": "XMLHttpRequest",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"email\": \"aaa@x.com\",\n\t\"password\": \"1234\",\n\t\"remember_me\": true\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"login"
+							]
+						},
+						"description": "\t"
+					},
+					"response": []
+				}
+			],
+			"description": "Métodos relacionados con la seguridad de la API",
+			"protocolProfileBehavior": {}
+		}
+	],
+	"protocolProfileBehavior": {}
+}
