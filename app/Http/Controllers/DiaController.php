@@ -4,37 +4,68 @@ namespace App\Http\Controllers;
 
 use App\Dia;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 
 class DiaController extends Controller
 {
     //Generar mes
     public function generarMes(Request $request){
 
-        //obtener todo los días del mes
-
-        //bucle dias
-
-            //añadir grupo al día
-            //guardar dia
+        $tz = 'Europe/Madrid';
         
-        //fin bucle
+        //Primes día del mes indicado del año actual
+        $fecha = Carbon::createFromDate(null, $request->mes, 1, $tz);
+        $grupoId = $request->grupoId;
 
-        //retunr dias
+        do{
+            if(!$fecha->isSaturday()&&!$fecha->isSunday()){
+
+                $dia = new Dia([
+                    'fecha' => $fecha,
+                    'bloqueado' => false,
+                    'grupo_id' => $grupoId,
+                ]);
+        
+                $dia->save(); 
+
+            }
+            $fecha = $fecha->addDay();
+
+        }while(!$fecha->isLastOfMonth());
+
+        //se consultan los días que se han creado y se devuelven
+        $dias = \App\Dia::where("grupo_id", $grupoId)->whereMonth('fecha', $request->mes)->get();
+
+        return $dias;
     }
 
 
     //Planning
     public function generarPlanning(Request $request){
 
+        $grupoId = $request->grupoId;
+
         //obtener diasGrupo
+        $dias = \App\Dia::where("grupo_id", $grupoId)->whereMonth('fecha', $request->mes)->get();
+
         //obtener usuariosGrupo
+        $grupo = \App\Grupo::find($grupoId);
+        $usuarios = $grupo->users;
+
+        $nUsuarios = count($usuarios);
+        $contU = 0;
 
         //bucle dias
-
-            
-        
-
-
+        foreach($dias as $dia){
+            $dia->user()->associate($usuarios[$contU]);
+            $dia->save();
+            $contU++;
+            if($contU==$nUsuarios){
+                $contU=0;
+            }
+        }
+               
+        return $dias;
     }
 
     //Bloquear día
@@ -97,5 +128,4 @@ class DiaController extends Controller
 
         return $dia;
     }
-
 }
