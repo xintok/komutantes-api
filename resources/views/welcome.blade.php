@@ -33,9 +33,9 @@
             <h1 class="logo cursive">Komutantes</h1>
             <h4 class="motto">Komutantes ofrece un medio de organización a personas que comparten un trayecto en coche frecuentemente. </h4>
             
-            <p class="enlace"><a href="aa"><i class="fab fa-github"></i> Código del proyecto</a></p>
-            <p class="enlace"><a><i class="fas fa-vial"></i> Pruebas con Postman</a></p>
-            <p class="enlace"><a><i class="far fa-file-pdf"></i> Memoria</a></p>
+            <p class="enlace"><a href="https://github.com/xintok/komutantes-api.git"><i class="fab fa-github"></i> Código del proyecto</a></p>
+            <p class="enlace"><a href="https://github.com/xintok/komutantes-api/blob/master/KOMUTANTES_API.postman_collection.json"><i class="fas fa-vial"></i> Pruebas con Postman</a></p>
+            <p class="enlace"><a href="https://github.com/xintok/komutantes-api/blob/master/MEMORIA.pdf"><i class="far fa-file-pdf"></i> Memoria</a></p>
         </div>
     </div>
     <div class="footer">
