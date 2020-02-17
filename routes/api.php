@@ -11,7 +11,7 @@ use Illuminate\Http\Request;
   
         //GRUPOS
         Route::post('nuevoGrupo', 'GrupoController@nuevoGrupo');
-        Route::post('usuariosGrupo', 'GrupoController@usuariosGrupo');
+        Route::get('usuariosGrupo', 'GrupoController@usuariosGrupo');
 
         //USUARIOS
         Route::post('unirseAGrupo', 'UserController@unirseAGrupo');

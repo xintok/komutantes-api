@@ -17,7 +17,7 @@ class GrupoController extends Controller
         ]);        
         
         $grupo->save();        
-        return response()->json(['message' => 'Grupo creado'], 201);
+        return response()->json(['Código de asignación' => $grupo->codigo], 201);
     }
 
     public function usuariosGrupo(Request $request){
