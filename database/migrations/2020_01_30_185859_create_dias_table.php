@@ -18,7 +18,7 @@ class CreateDiasTable extends Migration
             $table->date('fecha');
             $table->boolean('bloqueado');
             $table->unsignedBigInteger('grupo_id');
-            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('user_id')->nullable();
             $table->timestamps();
             $table->foreign('grupo_id')->references('id')->on('grupos');
             $table->foreign('user_id')->references('id')->on('users');
