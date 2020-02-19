@@ -115,7 +115,7 @@ class DiaController extends Controller
 
         $dia = $this->obtenerDia($request->grupoId, $request->fecha);
 
-        $dia->user()->disociate();
+        $dia->user()->dissociate();
 
         $dia->save();
         return response()->json(['message' => 'Día sin asignación'], 201);
